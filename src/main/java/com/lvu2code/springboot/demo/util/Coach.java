@@ -1,4 +1,4 @@
-package com.lvu2code.springboot.demo.mycoolapp.common;
+package com.lvu2code.springboot.demo.util;
 
 public interface Coach {
 

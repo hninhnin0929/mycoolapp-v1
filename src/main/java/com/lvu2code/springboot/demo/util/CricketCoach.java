@@ -1,6 +1,5 @@
-package com.lvu2code.springboot.demo.mycoolapp.common;
+package com.lvu2code.springboot.demo.util;
 
-import com.lvu2code.springboot.demo.mycoolapp.common.Coach;
 import org.springframework.stereotype.Component;
 
 @Component  // @Component annotation marks the class as a Spring bean
