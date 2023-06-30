@@ -17,14 +17,19 @@ public class DemoController {
 //    public DemoController(Coach theCoach){
 //        myCoach = theCoach;
 //    }
-    @Autowired
-    public DemoController(@Qualifier("cricketCoach") Coach theCoach){
-        myCoach = theCoach;
-    }
+//    @Autowired
+//    public DemoController(@Qualifier("cricketCoach") Coach theCoach){
+//        myCoach = theCoach;
+//    }
 //    @Autowired
 //    public void setCoach(Coach theCoach){
 //        myCoach = theCoach;
 //    }
+
+    @Autowired
+    public DemoController(Coach theCoach){
+        myCoach = theCoach;
+    }
 
     @GetMapping("/dailyworkout")
     public String getDailyWorkout(){
