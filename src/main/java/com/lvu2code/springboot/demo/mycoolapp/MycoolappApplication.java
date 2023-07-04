@@ -31,7 +31,7 @@ public class MycoolappApplication {
 			
 //			createStudent(studentDAO);
 			
-//			createMultipleStudents(studentDAO);
+			createMultipleStudents(studentDAO);
 			
 //			readStudent(studentDAO);
 			
@@ -43,7 +43,7 @@ public class MycoolappApplication {
 
 //			deleteStudent(studentDAO);
 
-			deleteAllStudents(studentDAO);
+//			deleteAllStudents(studentDAO);
 		};
 	}
 
