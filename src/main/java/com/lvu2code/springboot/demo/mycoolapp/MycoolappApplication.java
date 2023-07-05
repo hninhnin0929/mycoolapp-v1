@@ -31,7 +31,7 @@ public class MycoolappApplication {
 			
 //			createStudent(studentDAO);
 			
-			createMultipleStudents(studentDAO);
+//			createMultipleStudents(studentDAO);
 			
 //			readStudent(studentDAO);
 			
