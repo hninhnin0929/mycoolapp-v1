@@ -29,7 +29,7 @@ public class SeedAlgoTestController {
         int PLAINTEXT_LENGTH = plainText.getBytes().length;
 
         //call seed encrypt algorithm
-        String encodedStr = encryptWithSeed(pbData, PLAINTEXT_LENGTH);
+        String encodedStr = encryptWithSeed(pbData);
 
         return encodedStr;
     }
@@ -39,13 +39,14 @@ public class SeedAlgoTestController {
     public String decrypt(@Param("encodedString") String encodedString) {
 
         //call seed decrypt algorithm
-//        String encodedString = "L1abI6uyk0xgcZZKmfrf+lr6eU8GqcJyodxYcOGxdYaWkmItrHPdt5Knntd9xB/Pz+5nT/246wwdK9XWNE30aw==";
+//        encodedString = "L1abI6uyk0xgcZZKmfrf+lr6eU8GqcJyodxYcOGxdYaWkmItrHPdt5Knntd9xB/Pz+5nT/246wwdK9XWNE30aw==";
         String decodedStr = decryptWithSeed(encodedString);
 
         return decodedStr;
     }
-    public static String encryptWithSeed(byte[] pbData, int PLAINTEXT_LENGTH) {
+    public static String encryptWithSeed(byte[] pbData) {
 
+        int PLAINTEXT_LENGTH = pbData.length;
         System.out.print("\n");
         System.out.print("[ Test SEED reference code CBC]"+"\n");
         System.out.print("\n\n");
@@ -88,17 +89,32 @@ public class SeedAlgoTestController {
     }
 
     public static String decryptWithSeed(String encodedString){
-        // Base64 decode the string
-        byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
 
-        // Convert bytes to a string (assuming it's a text-based content)
-        //String decodedString = new String(decodedBytes);
+        // Remove non-Base64 characters (e.g., whitespace, newlines)
+       String cleanEncodedString = encodedString.replaceAll("\\s", "");
 
-        //System.out.println(decodedString);
+
+        // Calculate the padding required to make the input a multiple of 4 bytes
+        int padding = (4 - (cleanEncodedString.length() % 4)) % 4;
+
+        // Pad the input string with '=' as necessary
+        cleanEncodedString = cleanEncodedString + "====".substring(0, padding);
+
+        // Base64 decode the cleaned and padded string
+        byte[] decodedBytes = Base64.getDecoder().decode(cleanEncodedString);
+
 
         byte[] dec = KISA_SEED_CBC.SEED_CBC_Decrypt(pbUserKey, bszIV, decodedBytes, 0, decodedBytes.length);
         String finalDecodedStr = new String(dec, UTF_8);
         System.out.println(finalDecodedStr);
+
+        // Split the inputString by "::" and store the substrings in an array
+        String[] substrings = finalDecodedStr.split("::");
+
+        // Get the last substring after "::"
+        String lastSubstring = substrings[substrings.length - 1];
+
+        System.out.println("Last substring after '::': " + lastSubstring);
 
         return finalDecodedStr;
     }
