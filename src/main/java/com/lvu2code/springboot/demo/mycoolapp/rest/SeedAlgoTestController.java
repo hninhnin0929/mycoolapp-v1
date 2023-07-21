@@ -1,5 +1,6 @@
 package com.lvu2code.springboot.demo.mycoolapp.rest;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,28 @@ public class SeedAlgoTestController {
 
         return decodedStr;
     }
+
+    @GetMapping("/bcrypt")
+    public String bcrypt(@Param("password") String password) {
+
+        // Password to hash and verify
+//        String password = "mySecurePassword123";
+
+        // Hash a password
+        String hashedPassword = hashPassword(password);
+
+        // Print the hashed password
+        System.out.println("Hashed Password: " + hashedPassword);
+
+        // Verify the password
+        boolean isPasswordMatch = checkPassword("mySecurePassword123", hashedPassword);
+        System.out.println("Password Match: " + isPasswordMatch);
+
+        if(isPasswordMatch) return "Match";
+        else return "Not Match";
+
+    }
+
     public static String encryptWithSeed(byte[] pbData) {
 
         int PLAINTEXT_LENGTH = pbData.length;
@@ -117,5 +140,21 @@ public class SeedAlgoTestController {
         System.out.println("Last substring after '::': " + lastSubstring);
 
         return finalDecodedStr;
+    }
+    // Function to hash a password
+    public static String hashPassword(String password) {
+        // Define the cost factor for bcrypt (recommended between 10 and 12)
+        int costFactor = 12;
+
+        // Generate the salt and hash the password
+        String salt = BCrypt.gensalt(costFactor);
+        String hashedPassword = BCrypt.hashpw(password, salt);
+
+        return hashedPassword;
+    }
+
+    // Function to check if a password matches the hashed value
+    public static boolean checkPassword(String password, String hashedPassword) {
+        return BCrypt.checkpw(password, hashedPassword);
     }
 }
