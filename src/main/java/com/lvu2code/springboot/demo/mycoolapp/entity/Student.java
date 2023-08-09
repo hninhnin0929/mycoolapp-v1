@@ -18,8 +18,14 @@ public class Student {
     @Column(name="last_name")
     private String lastName;
 
+    @Column(name="password")
+    private String password;
+
     @Column(name="email")
     private String email;
+
+    @Column(name="reset_password_token")
+    private String resetPasswordToken;
 
     // define constructors
     public Student() {
@@ -32,7 +38,14 @@ public class Student {
         this.email = email;
     }
 
-    // define getter/setters
+    public Student(String firstName, String lastName, String password, String email, String resetPasswordToken) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.resetPasswordToken = resetPasswordToken;
+    }
+// define getter/setters
 
     public int getId() {
         return id;
@@ -58,6 +71,14 @@ public class Student {
         this.lastName = lastName;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -66,8 +87,14 @@ public class Student {
         this.email = email;
     }
 
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
 
-    // define toString() method
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
+// define toString() method
 
     @Override
     public String toString() {
@@ -76,6 +103,7 @@ public class Student {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", resetPasswordToken='" + resetPasswordToken + '\'' +
                 '}';
     }
 }
